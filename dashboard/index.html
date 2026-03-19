@@ -625,40 +625,6 @@ function saveData(arr) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 }
 
-/* ============================================================
-   SEED DEMO DATA if storage is empty
-   ============================================================ */
-function seedDemo() {
-  const now  = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth(); // 0-indexed
-
-  const demo = [];
-  const months = [-5,-4,-3,-2,-1,0];
-
-  months.forEach(offset => {
-    const d = new Date(year, month + offset, 1);
-    const y = d.getFullYear();
-    const m = d.getMonth();
-
-    const rnd = (lo, hi) => +(lo + Math.random() * (hi - lo)).toFixed(2);
-
-    // Income
-    demo.push({ id: uid(), type:'income',  desc:'Monthly Salary',    amount:rnd(3200,4500), category:'Salary',       date: fmt(y,m,1)  });
-    demo.push({ id: uid(), type:'income',  desc:'Freelance Project',  amount:rnd(200,800),  category:'Freelance',    date: fmt(y,m,10) });
-
-    // Expenses
-    demo.push({ id: uid(), type:'expense', desc:'Rent',              amount:rnd(1200,1400), category:'Housing',      date: fmt(y,m,2)  });
-    demo.push({ id: uid(), type:'expense', desc:'Groceries',         amount:rnd(250,420),   category:'Food',         date: fmt(y,m,5)  });
-    demo.push({ id: uid(), type:'expense', desc:'Electricity Bill',  amount:rnd(60,130),    category:'Utilities',    date: fmt(y,m,8)  });
-    demo.push({ id: uid(), type:'expense', desc:'Gym Membership',    amount:rnd(30,60),     category:'Health',       date: fmt(y,m,12) });
-    demo.push({ id: uid(), type:'expense', desc:'Netflix / Spotify', amount:rnd(20,35),     category:'Entertainment',date: fmt(y,m,15) });
-    demo.push({ id: uid(), type:'expense', desc:'Transport',         amount:rnd(80,180),    category:'Transport',    date: fmt(y,m,18) });
-    demo.push({ id: uid(), type:'expense', desc:'Online Shopping',   amount:rnd(50,250),    category:'Shopping',     date: fmt(y,m,22) });
-  });
-
-  saveData(demo);
-}
 
 function fmt(y,m,d) {
   return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
@@ -1000,7 +966,6 @@ function render() {
    INIT
    ============================================================ */
 (function init() {
-  if (!loadData().length) seedDemo();
   render();
 })();
 
